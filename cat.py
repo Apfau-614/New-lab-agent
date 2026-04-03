@@ -2,10 +2,11 @@
 This program prints stdin to the screen.
 '''
 import sys
+import shutil
 
 def cat(file):
-    data = file.read()
-    sys.stdout.buffer.write(data)
+    # Copy in fixed-size chunks so memory usage stays O(1)
+    shutil.copyfileobj(file, sys.stdout.buffer)
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
